@@ -1,4 +1,5 @@
 import I18nProvider from '@/app/components/I18nProvider';
+import {ThemeProvider} from '@/app/components/ThemeProvider';
 import {getMessages, getTranslations, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
@@ -53,16 +54,18 @@ export default async function LocaleLayout({
   const messages = (await import(`../../messages/${locale}.json`)).default;
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
         <link rel="icon" href="/favicon-32x32.png?v=3" type="image/png" sizes="32x32" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
       </head>
       <body className={`${display.variable} ${body.variable} ${mono.variable}`}>
-        <I18nProvider locale={locale} messages={messages}>
-          {children}
-        </I18nProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <I18nProvider locale={locale} messages={messages}>
+            {children}
+          </I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

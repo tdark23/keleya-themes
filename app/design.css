@@ -141,3 +141,296 @@
   .splash__center{overflow:visible}
   .splash__word{width:calc(100vw - 4rem);max-width:calc(100vw - 4rem);justify-content:center;overflow:visible;font-size:clamp(2.8rem,13.2vw,4.25rem);letter-spacing:-.065em;line-height:.9}
 }
+
+/* ================= LIGHT MODE OVERRIDES ================= */
+/* 1. Global Backgrounds & Transitions */
+body, .dark-section, .page-hero, .africa-statement, .team-experience, 
+.engineering-process, .engineering-process__stage, .process-experience, 
+.process-stage, .service-universe__panel, .expertise-card, .service-scene, 
+.team-member, .site-footer {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+html.light {
+  --k-paper: #f7f6f3;
+  --k-ink: #191919;
+  --k-soft: #f0efe9;
+  --k-line: rgba(0,0,0,0.08);
+  --k-line-dark: rgba(0,0,0,0.06);
+}
+
+html.light body,
+html.light .dark-section,
+html.light .africa-statement,
+html.light .team-experience,
+html.light .engineering-process,
+html.light .engineering-process__stage,
+html.light .process-experience,
+html.light .process-stage,
+html.light .site-footer {
+  background-color: var(--k-paper);
+  color: var(--k-ink);
+}
+
+/* Typography & Opacities Fix for Light Mode */
+html.light .process-title > p:last-child, 
+html.light .plain-process-intro > p:last-child,
+html.light .phase p, 
+html.light .phase small,
+html.light .expertise-card p, 
+html.light .card-top,
+html.light .service-content > p,
+html.light .outcome-grid p, 
+html.light .after-grid p,
+html.light .plain-steps p, 
+html.light .belief-grid p,
+html.light .belief-grid span, 
+html.light .footer-meta small,
+html.light .footer-bottom, 
+html.light .eyebrow.light,
+html.light .team-experience__heading p:last-child {
+  color: rgba(0,0,0,0.65);
+}
+
+html.light .section-label.light {
+  color: rgba(0,0,0,0.5);
+}
+html.light .section-label.light i {
+  background: rgba(0,0,0,0.1);
+}
+html.light .footer-lead {
+  border-bottom-color: rgba(0,0,0,0.1);
+}
+html.light .footer-bottom {
+  border-top-color: rgba(0,0,0,0.1);
+}
+html.light .belief-grid article,
+html.light .plain-steps article,
+html.light .outcome-grid article, 
+html.light .after-grid article,
+html.light .outcome-grid, 
+html.light .after-grid,
+html.light .service-cards,
+html.light .service-card {
+  border-color: rgba(0,0,0,0.1);
+}
+
+/* 2. Splash Screen */
+html.light .splash {
+  background-color: var(--k-paper);
+  color: var(--k-ink);
+}
+html.light .splash__word i {
+  color: var(--k-ink);
+}
+html.light .splash__word i:first-child {
+  color: var(--k-red);
+}
+html.light .splash__progress {
+  background: rgba(0,0,0,0.1);
+}
+html.light .splash__top span {
+  color: var(--k-ink);
+}
+
+/* 3. Expertise Cards */
+html.light .expertise-card {
+  background-color: var(--k-paper);
+}
+html.light .expertise-card:hover {
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+html.light .expertise-card__glow {
+  background: radial-gradient(circle, rgba(243,29,47,0.08), transparent 68%);
+}
+html.light .expertise-visual__icon {
+  background: rgba(255,255,255,0.9);
+  color: var(--k-ink);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+html.light .card-top, html.light .card-arrow {
+  color: rgba(0,0,0,0.4);
+}
+html.light .expertise-visual:before, html.light .expertise-visual:after {
+  border-color: rgba(0,0,0,0.08);
+}
+html.light .expertise-visual:after {
+  border-color: rgba(243,29,47,0.3);
+}
+
+/* 4. Service Universe */
+html.light .service-universe__panel {
+  background-color: var(--k-paper);
+  color: var(--k-ink);
+  border-top-color: rgba(0,0,0,0.08);
+}
+html.light .service-tone-1 { background: linear-gradient(135deg, #ffffff, #f7f6f3); }
+html.light .service-tone-2 { background: linear-gradient(135deg, #f9f8f6, #f2f0ec); }
+html.light .service-tone-3 { background: linear-gradient(135deg, #f0efe9, #e8e6df); }
+html.light .service-tone-4 { background: linear-gradient(135deg, #ffffff, #f4f2ec); }
+html.light .service-tone-5 { background: linear-gradient(135deg, #f8f7f4, #efebe4); }
+html.light .service-tone-6 { background: linear-gradient(135deg, #f5f4f0, #e9e6de); }
+
+html.light .service-universe__noise {
+  background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+}
+html.light .service-universe__panel:after {
+  border-color: rgba(0,0,0,0.05);
+  box-shadow: 0 0 0 6vw rgba(0,0,0,0.015), 0 0 0 13vw rgba(0,0,0,0.01);
+}
+html.light .service-universe__copy p {
+  color: rgba(0,0,0,0.65);
+}
+html.light .service-universe__meta {
+  border-bottom-color: rgba(0,0,0,0.1);
+}
+html.light .service-universe__meta span {
+  color: rgba(0,0,0,0.5);
+}
+html.light .service-universe__copy li {
+  border-color: rgba(0,0,0,0.1);
+  color: rgba(0,0,0,0.7);
+}
+html.light .service-universe__edge {
+  color: rgba(0,0,0,0.4);
+}
+
+/* Glassmorphism */
+html.light .service-scene {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+}
+html.light .service-scene__grid {
+  background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+}
+html.light .service-scene__window {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+}
+html.light .window-float i {
+  background: rgba(0,0,0,0.1);
+}
+html.light .window-float i:last-child {
+  background: var(--k-red);
+}
+html.light .service-scene__bar i {
+  background: rgba(0,0,0,0.15);
+}
+html.light .service-scene__bar i:first-child {
+  background: var(--k-red);
+}
+html.light .service-scene__chart i {
+  background: rgba(0,0,0,0.1);
+}
+html.light .service-scene__orbit {
+  border-color: rgba(0,0,0,0.1);
+}
+html.light .scene-icon {
+  background: #fff;
+  color: var(--k-ink);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* 5. Process & Engineering */
+html.light .process-grid {
+  background-image: linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.04) 1px, transparent 1px);
+}
+html.light .process-rail {
+  background: rgba(0,0,0,0.1);
+}
+html.light .process-rail i {
+  background: var(--k-red);
+  box-shadow: 0 0 14px rgba(243,29,47,0.4);
+}
+html.light .process-stage__top {
+  border-bottom-color: rgba(0,0,0,0.1);
+}
+html.light .process-stage__top p,
+html.light .process-phase small,
+html.light .process-phase p {
+  color: rgba(0,0,0,0.6);
+}
+html.light .process-stage__top em {
+  color: var(--k-red);
+}
+html.light .process-stage__bottom i {
+  background: rgba(0,0,0,0.1);
+}
+html.light .process-stage__bottom i.is-active {
+  background: var(--k-red);
+}
+html.light .engineering-process__stage:before {
+  background-image: linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.04) 1px, transparent 1px);
+}
+html.light .engineering-process__line {
+  background: rgba(0,0,0,0.1);
+}
+
+/* 6. Team Experience */
+html.light .team-experience:before {
+  background-image: linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.04) 1px, transparent 1px);
+}
+html.light .team-experience__halo {
+  background: radial-gradient(circle, rgba(235,32,56,0.08), transparent 67%);
+}
+html.light .team-grid {
+  background: rgba(0,0,0,0.08);
+}
+html.light .team-member {
+  background-color: #ffffff;
+}
+html.light .team-member:hover, html.light .team-member:focus-visible {
+  background-color: #fbfbfb;
+}
+html.light .team-member__spotlight {
+  background: radial-gradient(420px circle at var(--team-x) var(--team-y), rgba(235,32,56,0.08), transparent 42%);
+}
+html.light .team-member__portrait {
+  background: linear-gradient(150deg, #f5f4f0, #e8e6df 56%, #f2efe9);
+}
+html.light .team-member__portrait:before {
+  background: radial-gradient(circle at 72% 22%, rgba(243,29,47,0.1), transparent 30%), linear-gradient(115deg, transparent 46%, rgba(0,0,0,0.03) 47%, transparent 48%);
+}
+html.light .team-member__portrait:after {
+  border-color: rgba(0,0,0,0.05);
+  box-shadow: 0 0 0 4rem rgba(0,0,0,0.01), 0 0 0 8rem rgba(0,0,0,0.005);
+}
+html.light .team-member__monogram {
+  color: rgba(0,0,0,0.03);
+}
+html.light .team-member:hover .team-member__monogram {
+  color: rgba(243,29,47,0.08);
+}
+html.light .team-member__silhouette {
+  background: radial-gradient(circle at 50% 22%, #e5e3de 0 18%, transparent 18.5%), radial-gradient(ellipse at 50% 100%, #dbd9d4 0 47%, transparent 47.5%);
+  filter: drop-shadow(0 -18px 38px rgba(0,0,0,0.05));
+}
+html.light .team-member__scan {
+  box-shadow: 0 0 12px rgba(243,29,47,0.6);
+}
+html.light .team-member__portrait small,
+html.light .team-member__meta,
+html.light .team-member__copy p {
+  color: rgba(0,0,0,0.55);
+}
+html.light .team-member__copy {
+  border-top-color: rgba(0,0,0,0.1);
+}
+html.light .team-member__signal {
+  color: rgba(0,0,0,0.3);
+}
+html.light .team-member:hover .team-member__signal svg:last-child {
+  color: var(--k-ink);
+}
+html.light .team-experience__footer {
+  color: rgba(0,0,0,0.4);
+}
+html.light .team-experience__footer i {
+  background: linear-gradient(90deg, var(--k-red), rgba(0,0,0,0.08));
+}

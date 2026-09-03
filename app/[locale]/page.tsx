@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { PageShell } from "@/app/components/SiteShell";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { useTheme } from "next-themes";
 
 function SplashScreen() {
   const t = useTranslations("SplashScreen");
@@ -117,8 +118,12 @@ export default function Home() {
   const tExp = useTranslations("Expertise");
   const tPrec = useTranslations("Precision");
   const tCta = useTranslations("Cta");
+  
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const timer = window.setTimeout(() => setShowSplash(false), reducedMotion ? 350 : 3300);
     return () => window.clearTimeout(timer);
@@ -131,22 +136,24 @@ export default function Home() {
     { icon: ChartNoAxesCombined, scene: [ChartNoAxesCombined, Database, Bot], tag: tExp("items.data.tag"), title: tExp("items.data.title"), text: tExp("items.data.text") },
   ];
 
+  const isLight = mounted && resolvedTheme === "light";
+
   return (
     <>{showSplash && <SplashScreen />}<PageShell current="/">
       <main id="contenu">
-        <section className="home-hero">
-          <video className="hero-video" autoPlay muted loop playsInline preload="metadata"><source src="/keleya-hero.mp4" type="video/mp4" /></video>
-          <div className="hero-overlay" /><div className="hero-grid" />
+        <section className={`home-hero ${isLight ? 'bg-[#FAFAFA]' : ''}`} style={isLight ? { background: '#FAFAFA' } : {}}>
+          <video className={`hero-video ${isLight ? 'opacity-30' : ''}`} autoPlay muted loop playsInline preload="metadata"><source src="/keleya-hero.mp4" type="video/mp4" /></video>
+          <div className={`hero-overlay ${isLight ? 'bg-white/70' : ''}`} style={isLight ? { background: 'linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7) 60%, transparent), linear-gradient(0deg, rgba(255,255,255,0.8), transparent 55%)' } : {}} /><div className="hero-grid" style={isLight ? { filter: 'invert(1)', opacity: 0.1 } : {}} />
           <div className="home-hero-content">
-            <p className="eyebrow light hero-in one"><i /> {tHero("eyebrow")}</p>
-            <h1>
+            <p className={`eyebrow hero-in one ${isLight ? 'text-zinc-600' : 'light'}`}><i /> {tHero("eyebrow")}</p>
+            <h1 className={isLight ? 'text-[#101010]' : ''}>
               <span className="hero-in two">{tHero("title1")}</span>
               <span className="hero-in three"><span className="hero-keyword hero-performance">{tHero("title2")}</span></span>
               <span className="hero-in four hero-phrase">{tHero("title3")} <span className="hero-keyword">{tHero("title4")}</span></span>
             </h1>
             <div className="hero-lower hero-in five">
-              <p>{tHero("copy")}</p>
-              <div><Link className="button red" href="/contact">{tHero("contact")} <ArrowUpRight /></Link><a className="text-link light" href="#vision">{tHero("discover")} <ArrowDown /></a></div>
+              <p className={isLight ? 'text-zinc-700' : ''} style={isLight ? { color: '#3f3f46' } : {}}>{tHero("copy")}</p>
+              <div><Link className="button red" href="/contact">{tHero("contact")} <ArrowUpRight /></Link><a className={`text-link ${isLight ? 'text-zinc-900 border-zinc-900' : 'light'}`} style={isLight ? { color: '#18181b', borderColor: '#18181b' } : {}} href="#vision">{tHero("discover")} <ArrowDown /></a></div>
             </div>
           </div>
           <div className="hero-stamp"><span>{tHero("stamp1")}</span><small>{tHero("stamp2")}</small></div>
