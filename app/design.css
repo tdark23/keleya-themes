@@ -161,6 +161,7 @@ html.light {
 
 html.light body,
 html.light .dark-section,
+html.light .page-hero,
 html.light .africa-statement,
 html.light .team-experience,
 html.light .engineering-process,
@@ -433,4 +434,18 @@ html.light .team-experience__footer {
 }
 html.light .team-experience__footer i {
   background: linear-gradient(90deg, var(--k-red), rgba(0,0,0,0.08));
+}
+
+/* 7. Page Hero Specific (About, Services, Contact) */
+html.light .page-hero-grid {
+  background-image: linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px);
+}
+html.light .page-hero-top {
+  color: rgba(0,0,0,0.4);
+}
+html.light .scroll-cue {
+  color: rgba(0,0,0,0.4);
+}
+html.light .scroll-cue i {
+  background: linear-gradient(var(--k-ink), transparent);
 }
