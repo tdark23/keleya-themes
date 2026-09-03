@@ -1,22 +1,48 @@
 "use client";
 
-import { ArrowUpRight, Menu, X, Globe } from "lucide-react";
+import { ArrowUpRight, Menu, X, Globe, Sun, Moon } from "lucide-react";
 import Image from "next/image";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { useTheme } from "next-themes";
+
+export function ThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return <div style={{ width: 16, height: 16 }} />;
+
+  return (
+    <button
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      className="p-1 rounded-full transition-colors hover:bg-gray-200 dark:hover:bg-gray-800"
+      aria-label="Basculer le thème"
+    >
+      {resolvedTheme === "dark" ? <Sun size={16} /> : <Moon size={16} className="text-[#101010]" />}
+    </button>
+  );
+}
 
 export function LanguageSwitcher() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   const switchLanguage = (newLocale: string) => {
     router.replace(pathname, { locale: newLocale });
   };
 
+  const textColor = mounted && resolvedTheme === "light" ? "!text-zinc-900" : "!text-white";
+
   return (
-    <div className="language-switcher flex items-center gap-2 text-xs uppercase tracking-wider font-medium">
+    <div className={`language-switcher flex items-center gap-2 text-xs uppercase tracking-wider font-medium ${textColor}`}>
       <Globe size={14} className="opacity-70" />
       <button
         onClick={() => switchLanguage("fr")}
@@ -36,8 +62,14 @@ export function LanguageSwitcher() {
 }
 
 export function Brand() {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const textColor = mounted && resolvedTheme === "light" ? "!text-zinc-900" : "!text-white";
+
   return (
-    <Link className="brand flex items-center gap-2" href="/" aria-label="Keleya — Accueil">
+    <Link className={`brand flex items-center gap-2 ${textColor}`} href="/" aria-label="Keleya — Accueil">
       <Image src="/keleya-mark-red.png" alt="" width="84" height="84" unoptimized />
       <span>Keleya</span>
     </Link>
@@ -49,8 +81,11 @@ export function Header({ current }: { current: string }) {
   const [scrolled, setScrolled] = useState(false);
   const t = useTranslations("SiteShell.nav");
   const cta = useTranslations("SiteShell");
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -64,13 +99,27 @@ export function Header({ current }: { current: string }) {
     [t("contact"), "/contact"],
   ];
 
+  const isLight = mounted && resolvedTheme === "light";
+  
+  const headerBg = isLight
+    ? (scrolled ? "bg-[#f7f6f3]/90 backdrop-blur-md border-b border-gray-200" : "bg-[#f7f6f3] border-b border-gray-100")
+    : (scrolled ? "bg-[#191919]/90 backdrop-blur-md border-b border-transparent" : "bg-transparent border-b border-transparent");
+
+  const linkClass = isLight
+    ? "!text-zinc-800 opacity-80 hover:opacity-100 hover:!text-zinc-900 transition-all"
+    : "!text-gray-300 hover:!text-white transition-all";
+
+  const ctaClass = isLight
+    ? "bg-[#eb2038] !text-white px-4 py-2 rounded-full hover:bg-red-700 transition-colors"
+    : "";
+
   return (
-    <header className={`site-header flex items-center justify-between w-full flex-nowrap ${scrolled ? "is-scrolled" : ""}`}>
+    <header className={`site-header flex items-center justify-between w-full flex-nowrap transition-colors duration-300 ${headerBg}`}>
       <Brand />
 
-      <nav className={`flex-1 justify-center ${open ? "site-nav is-open" : "site-nav"}`} aria-label="Navigation principale">
+      <nav className={`flex-1 justify-center relative z-10 ${open ? "site-nav is-open" : "site-nav"}`} aria-label="Navigation principale">
         {links.map(([label, href]) => (
-          <Link key={href} className={current === href ? "is-active" : ""} href={href as any} onClick={() => setOpen(false)}>
+          <Link key={href} className={`${current === href ? "is-active" : ""} ${linkClass}`} href={href as any} onClick={() => setOpen(false)}>
             {label}
           </Link>
         ))}
@@ -78,14 +127,15 @@ export function Header({ current }: { current: string }) {
 
       {/* ml-auto pousse tout ce bloc au fond à droite */}
       <div className="flex items-center gap-5 ml-auto">
+        <ThemeToggle />
         <LanguageSwitcher />
-        <Link className="header-cta whitespace-nowrap" href="/contact">
+        <Link className={`header-cta whitespace-nowrap ${ctaClass}`} href="/contact">
           {cta("headerCta")} <ArrowUpRight size={16} />
         </Link>
       </div>
 
       <button className="menu-button" onClick={() => setOpen(!open)} aria-label={open ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={open}>
-        {open ? <X /> : <Menu />}
+        {open ? <X /> : <Menu className={isLight ? "text-black" : "text-white"} />}
       </button>
       <span className="header-signal" />
     </header>
